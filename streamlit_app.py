@@ -1,56 +1,58 @@
 import streamlit as st
-from openai import OpenAI
+from groq import Groq
 
-# Show title and description.
-st.title("💬 Chatbot")
-st.write(
-    "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
-    "You can also learn how to build this app step by step by [following our tutorial](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)."
-)
+# Initialize the Groq client using the API key stored in Streamlit's secrets
+client = Groq(api_key="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")
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+# Set the system prompt
+system_prompt = {
+    "role": "system",
+    "content": "You are a helpful assistant. You reply with very short answers."
+}
 
-    # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+# Initialize or load the chat history in Streamlit's session state (for the backend only)
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [system_prompt]
 
-    # Create a session state variable to store the chat messages. This ensures that the
-    # messages persist across reruns.
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+# Initialize the input field value in session state to track clearing
+if "user_input" not in st.session_state:
+    st.session_state.user_input = ""
 
-    # Display the existing chat messages via `st.chat_message`.
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+# Title for the Streamlit app
+st.title("Chat with Groq Assistant")
 
-    # Create a chat input field to allow the user to enter a message. This will display
-    # automatically at the bottom of the page.
-    if prompt := st.chat_input("What is up?"):
+def clear_text():
+    st.session_state.user_input = "" 
 
-        # Store and display the current prompt.
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+# Text input for user query
+user_input = st.text_input("You:", st.session_state.user_input, placeholder="Type your message here...", on_change=clear_text)
 
-        # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
+# Function to generate a response from Groq and update the chat history
+def get_groq_response(input_text):
+    # Add the user's message to the chat history
+    st.session_state.chat_history.append({"role": "user", "content": input_text})
+    
+    # Generate the response using the Groq client
+    response = client.chat.completions.create(
+        model="llama3-70b-8192",
+        messages=st.session_state.chat_history,
+        max_tokens=100,
+        temperature=1.2
+    )
+    
+    # Extract the assistant's response from the API result
+    assistant_message = response.choices[0].message.content
+    
+    # Add the assistant's response to the chat history (in session state only)
+    st.session_state.chat_history.append({"role": "assistant", "content": assistant_message})
+    
+    return assistant_message
 
-        # Stream the response to the chat using `st.write_stream`, then store it in 
-        # session state.
-        with st.chat_message("assistant"):
-            response = st.write_stream(stream)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+# If the user submits a message, get the assistant's response
+if user_input:
+    assistant_response = get_groq_response(user_input)
+    
+    # Display only the latest user input and assistant response
+    st.write("You:", user_input)
+    st.write("Assistant:", assistant_response)
+
