@@ -5,6 +5,8 @@ from nlp_crew.src.nlp_crew.crew import NlpCrew  # Ensure this import is correct
 # Access the API key from Streamlit secrets
 groq_api_key = st.secrets["GROQ"]["API_KEY"]
 
+os.environ["SERPER_API_KEY"] = "a579ab50ddbfb327acc282c659c95c8a6cc420a5"
+
 # Check if the API key exists
 if not groq_api_key:
     st.error("Groq API key is missing! Please set it in the Streamlit secrets.")
@@ -25,52 +27,80 @@ class CrewContext:
 # Initialize the CrewAI crew
 nlp_crew = NlpCrew()
 
-# Streamlit app interface
-st.title("NLP Crew Dashboard")
-st.write("Interact with CrewAI tasks with custom inputs.")
+st.sidebar.title("Navigation")
+pages = ["Home", "Upload Materials"]
+selection = st.sidebar.radio("Go to", pages)
 
-# Task selection dropdown
-task_option = st.selectbox(
-    "Select a Task to Run",
-    ["Research Task", "Reporting Task"]
-)
+if selection == "Home":
+    # Streamlit app interface
+    st.title("NLP Crew Dashboard")
+    st.write("Interact with CrewAI tasks with custom inputs.")
 
-# Dynamic input fields for tasks
-if task_option == "Research Task":
-    # Custom input fields for the "Research Task"
-    query = st.text_input("Enter your query:", placeholder="Type your research topic here...")
-elif task_option == "Reporting Task":
-    # Custom input fields for the "Reporting Task"
-    report_topic = st.text_input("Enter report topic:", placeholder="Type your report topic here...")
+    # Task selection dropdown
+    task_option = st.selectbox(
+        "Select a Task to Run",
+        ["Question Answering", "Cheat Sheet"]
+    )
 
-# Run task on button click
-if st.button("Run Task"):
-    # Validation to ensure inputs are filled
-    if task_option == "Research Task" and query.strip() == "":
-        st.warning("Please enter a query before running the research task!")
-    elif task_option == "Reporting Task" and report_topic.strip() == "":
-        st.warning("Please enter a report topic before running the reporting task!")
-    else:
-        with st.spinner("Running the selected task..."):
-            # Create a CrewContext for running tasks
-            context = CrewContext(
-                topic=query if task_option == "Research Task" else report_topic
-            )
+    # Dynamic input fields for tasks
+    if task_option == "Question Answering":
+        # Custom input fields for the "Research Task"
+        query = st.text_input("Enter your query:", placeholder="Type your research topic here...")
+    elif task_option == "Cheat Sheet":
+        # Custom input fields for the "Reporting Task"
+        cheat_sheet_topic = st.text_input("Enter report topic:", placeholder="Type your report topic here...")
 
-            # Execute the task by triggering the crew's process
-            try:
-                result = nlp_crew.crew().kickoff(inputs=context.to_dict())
-                
-                # Access the 'raw' field of the result (since 'output' does not exist)
-                if hasattr(result, 'raw'):
-                    st.success("Task Completed!")
-                    st.write("**Task Output (HTML Format):**")
+    # Run task on button click
+    if st.button("Run Task"):
+        # Validation to ensure inputs are filled
+        if task_option == "Question Answering" and query.strip() == "":
+            st.warning("Please enter a query before running the question answering task!")
+        elif task_option == "Cheat Sheet" and cheat_sheet_topic.strip() == "":
+            st.warning("Please enter a query before running the cheat sheet task!")
+        else:
+            with st.spinner("Running the selected task..."):
+                # Create a CrewContext for running tasks
+                context = CrewContext(
+                    topic=query if task_option == "Question Answering" else cheat_sheet_topic
+                )
+
+                # Execute the task by triggering the crew's process
+                try:
+                    result = nlp_crew.crew().kickoff(inputs=context.to_dict())
                     
-                    # Render the result in HTML format
-                    st.markdown(result.raw, unsafe_allow_html=True)
-                else:
-                    st.warning("The task returned an unexpected result format.")
-            
-            except Exception as e:
-                # Handle any errors that might occur during task execution
-                st.error(f"An error occurred while running the task: {str(e)}")
+                    # Access the 'raw' field of the result (since 'output' does not exist)
+                    if hasattr(result, 'raw'):
+                        st.success("Task Completed!")
+                        st.write("**Task Output (HTML Format):**")
+                        
+                        # Render the result in HTML format
+                        st.markdown(result.raw, unsafe_allow_html=True)
+                    else:
+                        st.warning("The task returned an unexpected result format.")
+                
+                except Exception as e:
+                    # Handle any errors that might occur during task execution
+                    st.error(f"An error occurred while running the task: {str(e)}")
+                    
+elif selection == "Upload Materials":
+    st.title("Upload Section")
+    
+    # Let the user upload PDF files
+    uploaded_files = st.file_uploader("Upload Course Materials (PDFs)", type="pdf", accept_multiple_files=True)
+    
+    if uploaded_files:
+        st.success(f"{len(uploaded_files)} file(s) uploaded.")
+        
+        # Convert uploaded files into a list of file-like objects
+        file_names = [file.name for file in uploaded_files]
+        
+        # Call the content ingestion task via the Crew agent
+        crew_instance = NlpCrew()
+        # This task will handle the files and process them accordingly
+        results = crew_instance.content_ingestion_task(uploaded_files)
+
+        # Display the results from the task
+        for result in results:
+            st.write(result)  # Display each result in the Streamlit app
+
+
