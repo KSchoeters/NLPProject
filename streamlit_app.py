@@ -67,20 +67,21 @@ if selection == "Home":
                 # Execute the task by triggering the crew's process
                 try:
                     result = nlp_crew.crew().kickoff(inputs=context.to_dict())
-                    
-                    # Access the 'raw' field of the result (since 'output' does not exist)
-                    if hasattr(result, 'raw'):
-                        st.success("Task Completed!")
-                        st.write("**Task Output (HTML Format):**")
-                        
-                        # Read the output file and display its contents in Streamlit
-                        with open('question_ansmwer_report.d', 'r') as file:
-                            report = file.read()
 
-                        st.write(report)  # Display the contents in the Streamlit app
-
+                    # Attempt to read the question_answer_report.md file
+                    output_file = "question_answer_report.md"
+                    if os.path.exists(output_file):
+                        try:
+                            with open(output_file, "r", encoding="utf-8") as file:
+                                report_content = file.read()
+                            st.success("Task Completed!")
+                            st.write("**Task Output:**")
+                            st.markdown(report_content)
+                        except UnicodeDecodeError as e:
+                            st.error(f"An error occurred while reading the file: {str(e)}")
                     else:
-                        st.warning("The task returned an unexpected result format.")
+                        st.warning(f"Output file {output_file} not found. Please check the task execution.")
+
                 
                 except Exception as e:
                     # Handle any errors that might occur during task execution
@@ -95,16 +96,20 @@ elif selection == "Upload Materials":
     if uploaded_files:
         st.success(f"{len(uploaded_files)} file(s) uploaded.")
         
-        # Convert uploaded files into a list of file-like objects
-        file_names = [file.name for file in uploaded_files]
-        
-        # Call the content ingestion task via the Crew agent
+        # Initialize the NlpCrew instance
         crew_instance = NlpCrew()
-        # This task will handle the files and process them accordingly
-        results = crew_instance.content_ingestion_task(uploaded_files)
-
-        # Display the results from the task
-        for result in results:
-            st.write(result)  # Display each result in the Streamlit app
-
-
+        
+        if st.button("Ingest Content"):
+            with st.spinner("Ingesting content..."):
+                try:
+                    # Run the content ingestion task
+                    inputs = {"uploaded_files": uploaded_files}
+                    result = crew_instance.crew().content_ingestion_task.kickoff(inputs=inputs)
+                    
+                    if result.get("status") == "success":
+                        st.success("Content successfully ingested into ChromaDB!")
+                        st.write(result.get("details", []))
+                    else:
+                        st.error(f"Error during ingestion: {result.get('message')}")
+                except Exception as e:
+                    st.error(f"An error occurred: {str(e)}")

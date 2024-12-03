@@ -42,12 +42,12 @@ class NlpCrew():
             verbose=True
         )
 
-    # @agent
-    # def content_ingestion_agent(self) -> Agent:
-    #     return Agent(
-    #         config=self.agents_config['content_ingestion_agent'],
-    #         verbose=True
-    #     )
+    @agent
+    def content_ingestion_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['content_ingestion_agent'],
+            verbose=True
+        )
 
     def extract_text_from_pdf(self, pdf_file):
         """Extract text from a single PDF file."""
@@ -116,23 +116,41 @@ class NlpCrew():
     def cheat_sheet_task(self) -> Task:
         return Task(
             config=self.tasks_config['cheat_sheet_task'],
-            
+            output_file='report.md'
         )
     
     
-    # def content_ingestion_task(self, uploaded_files):
-    #     """Handle the content ingestion task."""
-    #     # Convert the list to a tuple (hashable)
-    #     uploaded_files_tuple = tuple(uploaded_files)
+    @task
+    def content_ingestion_task(self) -> Task:
+        def process_uploaded_files(inputs):
+            """
+            Process uploaded files by extracting text, generating embeddings, and storing them in ChromaDB.
+            """
+            try:
+                uploaded_files = inputs.get("uploaded_files", [])
+                results = []
 
-    #     results = []
-    #     for uploaded_file in uploaded_files_tuple:
-    #         text = self.extract_text_from_pdf(uploaded_file)
-    #         chunks = self.preprocess_text(text)
-    #         embeddings = self.create_embeddings(chunks)
-    #         result = self.store_in_chromadb(chunks, embeddings, uploaded_file.name)
-    #         results.append(result)
-    #     return results
+                for uploaded_file in uploaded_files:
+                    # Extract text
+                    text = self.extract_text_from_pdf(uploaded_file)
+                    # Preprocess text
+                    chunks = self.preprocess_text(text)
+                    # Generate embeddings
+                    embeddings = self.create_embeddings(chunks)
+                    # Store in ChromaDB
+                    result = self.store_in_chromadb(chunks, embeddings, uploaded_file.name)
+                    results.append(result)
+
+                return {"status": "success", "details": results}
+            except Exception as e:
+                return {"status": "error", "message": str(e)}
+
+        return Task(
+            config=self.tasks_config['content_ingestion_task'],
+            postprocess=lambda output: output,  # No postprocessing required
+            custom_func=process_uploaded_files
+        )
+
 
 
     # def query_chromadb(self, query):

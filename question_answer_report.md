@@ -1,15 +1,57 @@
-Animals are multicellular eukaryotes whose cells are bound together by collagen, with sperm and forming polar bodies in oogenesis. The modern taxonomy includes five kingdoms: Animalia, Plantae, Fungi, Monera, and Protista, with further subdivisions to categorize all known life. The primary method of animal classification is through the use of nine branching categories: Domain, Kingdom, Phylum, Class, Order, Suborder, Family, Genus, and Species.
+This report on animals in 2024 covers the different aspects and dimensions of the present animals. A thorough internet search conducted on "What are animals 2024" and other related questions could gather ample information that would help derive relevant details.
 
-There are six main animal groups: invertebrates, fish, amphibians, reptiles, birds, and mammals. Each type exhibits unique evolutionary adaptations. Invertebrates make up at least 95 percent of all animal species, while the remaining animals are vertebrates. Vertebrates are animals that have a backbone.
+The first set of search results helped gather sources from a wide variety of genres including conservation news pieces, animal lovers' blogs, science documentation websites, and animal video platforms. The facts that caught our attention were the endangered species, the different animal varieties trending in current times, and new animals being born discovered. [1] A few of those trending at this moment are Capybara, koalas, unicorns, dinosaurs, foxes, squirrels, bears, owls, and badgers.[2]
+The search also led to interesting websites listing the funniest animal videos of the year. Pets doing unthinkable hilarious tricks and humans doing charming gestures to the animals struck a cord with the amusing side of the humans.[3]
+With more search results came a list of "the most endangered animals in 2024" across the web sites, most notably from the official " international fund for animal welfare" and "earth.org" websites.[4][5][6][7]
+Also in the result was "Classification of Animals: The Complete Guide" from a-z animals offering detailed information on the hierarchy and naming systems for different species.[8]
+The internet also provides guidance on the estimated number of animal species that exist on Earth. One official source offers information on an astonishing 2.16 million living animal species including mammals, invertebrates, vertebrates, fish, birds, etc living on this earth![9]
+Other observations by looking through internet content gave, most trending animals like Kākāpōs, monkeys.[10][11]
 
-Recent progress in the field of animal phylogeny has important implications for understanding the evolution of development, morphology, genomes, and cells. A phylogeny, or a phylogenetic tree, is a hypothesis of evolutionary relationships among species. The study of phylogeny aims to determine the evolutionary relationships between phyla. Currently, most biologists divide the animal kingdom into several distinct phyla based on body plans and other morphological features.
+In conclusion to "What are animals" and the observations gained from web sources and videos, animals are eukaryotic, multicellular organisms living in different domains and kingdoms, as first identified by Carl Linnaeus. His observation led to animal classification, a system aimed at systematically organizing known species according to the similarities and species.[12]
+According to scientists recent observations on new life in the ocean near deep sea was new example of new life observations.[13]
+It is also worthwhile noting the different origins that animals have according to research studies that suggest a possible initial existence of animals that dates back about 3.7 billion years, as indicated by the presence of microorganisms in rocks discovered around the earth.[14]
 
-Studying animal phylogeny helps us understand how different species evolved over time, how they are related, and how they adapt to their environments. It also has implications for the conservation and management of biodiversity, as well as for biotechnology and the development of new treatments for diseases.
+Bibliography:
 
-References:
-1. "Animal Classification: A Taxonomy for All Living Things" (https://animals.howstuffworks.com/animal-facts/animal-classification.htm)
-2. "Classification of Animals: The Complete Guide" (https://a-z-animals.com/reference/animal-classification/)
-3. "Animal - Classification, Taxonomy, Phylogeny" (https://www.britannica.com/animal/animal/Classification)
-4. "27.3 Animal Phylogeny" - Biology 2e | OpenStax (https://openstax.org/books/biology-2e/pages/27-3-animal-phylogeny)
-5. "Phylogenomic Insights into Animal Evolution" - ScienceDirect.com (https://www.sciencedirect.com/science/article/pii/S0960982215009288)
-6. "12.7: Introduction to Animal Phylogeny" - Biology LibreTexts (https://bio.libretexts.org/Courses/Lumen_Learning/Fundamentals_of_Biology_I_(Lumen)/12%3A_Module_9-_Animal_Diversity/12.07%3A_Introduction_to_Animal_Phylogeny)
+[1] 16 of the world's most endangered animals https://www.ifaw.org/journal/world-most-endangered-animals 
+
+[2] what are trendy animals right now? https://www.reddit.com/r/crafts/comments/18doxqj/what_are_the_trendy_animals_right_now/
+
+[3] The FUNNIEST ANIMALS of 2024!   - YouTube
+https://www.youtube.com/watch?v=53-gt19MuUs
+
+[4] 10 of the World's Most Endangered Animals in 2024 - earth.org
+https://earth.org/endangered-species-day/
+
+[5] how many animals are in the world 
+https://worldanimalfoundation.org/advocate/how-many-animals-are-in-the-world/
+
+[6] seeing with new eyes -howardyu 
+https://www.howardyu.org/seeing-with-new-eyes-in-2024-heres-why-thinking-about-animals-matters/
+
+[7] How animals are trending in current scenario 
+https://www.earth.com/news/what-are-the-most-endangered-animals-2023-were-now-one-step-closer-to-knowing-one-answer/
+ https://a-z-animals.com/animals/lists/most-popular-animals/
+
+[8] classification of animals 
+https://a-z-animals.com/reference/animal-classification/
+
+[9] The World's 10 Favorite & Most Popular Animals in 2024 
+https://a-z-animals.com/animals/lists/most-popular-animals/
+
+[10] Summer 2024 
+https://www.humanesociety.org/all-animals/summer-2024
+
+[11] New Oxford study sheds light on the origin of animals -ox
+https://www.ox.ac.uk/news/2023-06-28-new-oxford-study-sheds-light-origin-animals
+
+[12] animal -Wikipedia 
+https://en.wikipedia.org/wiki/Animal
+
+[13] New Species Discoveries 2023 - World Animal Protection 
+https://www.worldanimalprotection.org/news/new-species-discoveries-2023
+
+[14] origin of life | evolutionary history - Britannica
+https://www.britannica.com/science/eukaryote
+
+Note: Due to the huge content that could arise from the topic "What are animals 2024" and "animal classification". This final answer summarizes what was needed to be researched on the internet given the tools.

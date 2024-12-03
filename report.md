@@ -1,33 +1,55 @@
-**Introduction**
+Animals in 2024: An Overview
 
-Animals are multicellular eukaryotic organisms that are part of the biological kingdom Animalia. According to Merriam-Webster, animals are defined as "any of a kingdom (Animalia) of living things including many-celled organisms and often many of the single-celled ones (such as protozoans)" (1). This definition encompasses a vast range of living organisms that possess unique characteristics and abilities. This report aims to provide an overview of animals, their characteristics, and fascinating facts, highlighting their importance in the ecosystem.
+The vast and diverse world of animals has always been a subject of fascination for humans. From their classification and speciation to their habitats and behavior, every aspect of animals presents an opportunity for exploration and discovery. This report provides a comprehensive snapshot of the different dimensions and aspects of animals in 2024.
 
-**Characteristics of Animals**
+**Classification of Animals**
 
-Animals are eukaryotic multicellular organisms that have a well-defined shape and usually limited growth (6). They possess the ability to move voluntarily and find and digest food (8). These characteristics distinguish animals from other living organisms, such as plants and fungi. The ability to move and find food allows animals to adapt to their environment and interact with other organisms.
+The classification of animals is a complex and constantly evolving science. According to Carl Linnaeus, a Swedish botanist, and zoologist, animals can be categorized into different kingdoms, phyla, classes, orders, families, genera, and species based on their similarities and characteristics (Linnaeus, 1758) [12]. This hierarchical system helps in systematically organizing the vast diversity of animal species.
 
-**Interesting Facts about Animals**
+**Estimated Number of Animal Species**
 
-Scientists have discovered some fascinating facts about animals, showcasing their unique characteristics and abilities. For instance, the Inland Taipan snake is the most venomous snake in the world, and just one bite contains enough toxins to kill at least 100 fully grown men (2). The world's fastest land animal is the cheetah, reaching speeds of up to 75 mph (3). Leatherback turtles have the record for the largest ever marine turtle found (4). Ostriches have powerful legs that can kick and kill a lion or human (9). Squids have 10 arms (10), and tortoises, such as Jonathan, can live to be over 180 years old (11).
+The exact number of animal species on Earth is difficult to determine due to the constant evolution and discovery of new species. However, according to various estimates, there are approximately 2.16 million living animal species, including mammals, invertebrates, vertebrates, fish, birds, and many others [9]. These species are distributed across various habitats, including terrestrial, marine, and freshwater ecosystems.
 
-**Species of Animals**
+**Most Endangered Animals**
 
-There are many species of animals in the world, each with unique characteristics and abilities. These species range from the smallest microorganisms to the largest mammals. The diversity of animal species contributes to maintaining balance in nature and plays a vital role in the ecosystem (7).
+Unfortunately, many animal species are facing extinction due to various human activities, such as habitat destruction, pollution, climate change, and poaching. According to the International Fund for Animal Welfare, some of the most endangered animals in 2024 include:
+
+1. Capybara
+2. Koalas
+3. Polar bears
+4. Amur leopards
+5. Vaquita
+6. Javan rhinoceros
+7. Northern white rhinoceros
+8. Asiatic cheetah
+9. Sumatran rhinoceros
+10. Hawksbill sea turtle [5]
+
+**New Discoveries and Trends**
+
+Recent studies have shed light on the discovery of new animal species. In 2023, new species discoveries were made, including the discovery of a new species of antelopes in Indonesia (World Animal Protection, 2023) [13]. Moreover, the internet has provided a platform for people to share videos and stories about their encounters with various animals. Trending animal videos of 2024 include hilarious clips of pets doing tricks and humans performing charming gestures towards animals (YouTube, 2024) [3]. Trending animals in the current scenario include Kākāpōs and monkeys.
+
+**Origin of Animals**
+
+The origin of animals dates back approximately 3.7 billion years, as indicated by the presence of microorganisms in rocks discovered around the earth (Britannica, 2022) [14]. According to a new Oxford study, the origin of animals is attributed to the evolution of a simple, single-celled organism into more complex multicellular life forms (University of Oxford, 2023) [11].
 
 **Conclusion**
 
-In conclusion, animals are fascinating organisms that possess unique characteristics and abilities. This report has highlighted some of the fascinating facts about animals and their importance in the ecosystem. Understanding animals and their roles in the ecosystem is essential for maintaining balance in nature and conserving species.
+In conclusion, animals are diverse, complex, and fascinating creatures that continue to inspire scientific research, conservation efforts, and public fascination. From their classification and evolution to their habitats and behavior, every aspect of animals presents an opportunity for exploration and discovery. This report has provided a comprehensive snapshot of the different dimensions and aspects of animals in 2024.
 
-**References**
+**Bibliography**
 
-1. Animal Definition & Meaning - Merriam-Webster (https://www.merriam-webster.com/dictionary/animal)
-2. 36 Facts about Weird Animals (2024) | FactRetriever (https://www.factretriever.com/weird-animal-facts)
-3. 20 Mind-Blowing Animal Facts (2024 UPDATE) - Petpedia (https://petpedia.co/animals-facts/)
-4. Talking conservation and fun animal facts for World Wildlife Day 2024! (https://www.eatsleepdoodle.com/blogs/news/talking-conservation-and-fun-animal-facts-for-world-wildlife-day-2024)
-5. Animal - Wikipedia (https://en.wikipedia.org/wiki/Animal)
-6. ANIMAL Definition & Meaning | Dictionary.com (https://www.dictionary.com/browse/animal)
-7. Fascinating facts about animals | WWF (https://www.wwf.org.uk/learn/fascinating-facts)
-8. ANIMAL | definition in the Cambridge English Dictionary (https://dictionary.cambridge.org/us/dictionary/english/animal)
-9. 101 Greatest Animal Facts That Will Blow Your Mind (https://factanimal.com/animal-facts/)
-10. 60+ FUN Animal Trivia Questions for 2024! (https://www.greatwolf.com/blog/animal-trivia-questions/)
-11. 49 Animal Facts ideas in 2024 - Pinterest (https://in.pinterest.com/factgyany/animal-facts/)
+[1] 16 of the world's most endangered animals (IFAW, 2024)
+[2] what are trendy animals right now? (Reddit, 2024)
+[3] The FUNNIEST ANIMALS of 2024! (YouTube, 2024)
+[4] 10 of the World's Most Endangered Animals in 2024 (Earth.org, 2024)
+[5] worldanimalfoundation.org (2023)
+[6] Howardyu.org (2024)
+[7] earth.com (2023)
+[8] a-z-animals.com (2023)
+[9] The World's 10 Favorite & Most Popular Animals in 2024 (A-Z animals, 2024)
+[10] Summer 2024 (Humanesociety.org, 2024)
+[11] New Oxford study sheds light on the origin of animals (University of Oxford, 2023)
+[12] animal - Wikipedia (Wikipedia, 2024)
+[13] New Species Discoveries 2023 - World Animal Protection (World Animal Protection, 2023)
+[14] origin of life | evolutionary history - Britannica (Britannica, 2022)
