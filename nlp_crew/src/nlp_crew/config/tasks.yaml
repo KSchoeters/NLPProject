@@ -1,10 +1,10 @@
 question_answerer_task:
   description: >
-    Conduct a small research about {topic}
+    Conduct a research about {topic}
     Make sure you find any interesting and relevant information given
     the current year is 2024.
   expected_output: >
-    About 10 lines of text{topic} with refereces
+    small summary text{topic} with refereces
   agent: question_answerer
 
 cheat_sheet_task:
@@ -12,8 +12,7 @@ cheat_sheet_task:
     Review the context you got and expand each topic into a full section for a report.
     Make sure the report is detailed and contains any and all relevant information.
   expected_output: >
-    A fully fledge reports with the mains topics, each with a full section of information.
-    Formatted as markdown without '```'
+    small summary of the topic with refereces
   agent: cheat_sheet
 
 content_ingestion_task:

@@ -73,8 +73,12 @@ if selection == "Home":
                         st.success("Task Completed!")
                         st.write("**Task Output (HTML Format):**")
                         
-                        # Render the result in HTML format
-                        st.markdown(result.raw, unsafe_allow_html=True)
+                        # Read the output file and display its contents in Streamlit
+                        with open('question_ansmwer_report.d', 'r') as file:
+                            report = file.read()
+
+                        st.write(report)  # Display the contents in the Streamlit app
+
                     else:
                         st.warning("The task returned an unexpected result format.")
                 

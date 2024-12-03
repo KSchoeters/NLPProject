@@ -116,7 +116,7 @@ class NlpCrew():
     def cheat_sheet_task(self) -> Task:
         return Task(
             config=self.tasks_config['cheat_sheet_task'],
-            output_file='report.md'
+            
         )
     
     
