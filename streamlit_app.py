@@ -6,7 +6,7 @@ from nlp_crew.src.nlp_crew.crew import NlpCrew  # Ensure this import is correct
 groq_api_key = st.secrets["GROQ"]["API_KEY"]
 
 os.environ["SERPER_API_KEY"] = "a579ab50ddbfb327acc282c659c95c8a6cc420a5"
-# os.environ["OPENAI_API_KEY"] = "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"
+
 
 # Check if the API key exists
 if not groq_api_key:
