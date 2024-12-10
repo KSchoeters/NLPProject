@@ -7,7 +7,7 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool, PDFSearchTool
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
+# os.environ["OPENAI_API_KEY"] = "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"
 
 # Specify the path
 db_path = "../../db_storage"
