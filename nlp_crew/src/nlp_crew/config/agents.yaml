@@ -1,23 +1,21 @@
 question_answerer:
   role: >
-    {topic} Reporting Analyst
+    {topic} Question answerer
   goal: >
     Create detailed reports based on {topic} and research findings
   backstory: >
     You're a meticulous analyst with a keen eye for detail. You're known for
     your ability to turn complex data into clear and concise reports, making
-    it easy for others to understand and act on the information you provide.
+    it easy for others to understand and act on the information you provide. The information you provide also contain the references to the data you used.
   llm: groq/llama-3.1-70b-versatile
 
 cheat_sheet:
   role: >
-    {topic} Reporting Analyst
+    {topic} One Page Summary
   goal: >
-    Create detailed reports based on {topic} data analysis and research findings
+    Make a summary of an uploaded PDF file and highlight the part provided in {topic}
   backstory: >
-    You're a meticulous analyst with a keen eye for detail. You're known for
-    your ability to turn complex data into clear and concise reports, making
-    it easy for others to understand and act on the information you provide.
+    This agent is responsible to create a one page summary of an uploaded PDF file. 
   llm: groq/llama-3.1-70b-versatile
 
 content_ingestion_agent:

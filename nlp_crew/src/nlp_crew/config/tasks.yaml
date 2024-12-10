@@ -1,22 +1,23 @@
 question_answerer_task:
   description: >
-    Conduct a research about {topic}.
-    Make sure you find any interesting and relevant information given
-    the current year is 2024. After you do the research, make a detailed report.
+    Conduct a detailed research on {topic}.
+    Divide the findings into sections, each with a relevant header summarizing the section content.
+    At the bottom of the report, include a list of references in bullet points.
+    The year is 2024; ensure all information is current and relevant.
   expected_output: >
-    A JSON object containing:
-    - "summary": A detailed summary of the topic.
-    - "references": An array of reference URLs or titles used for research.
+    A detailed report divided into sections with headers.
+    Each section contains a summary of the findings, and references are listed in bullet points at the end with the link to the page.
   agent: question_answerer
+
 
 cheat_sheet_task:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Review the context you got from the PDF file that was uploaded and make a one page summary of the PDF file.
+    Make sure that the main part of the summary is about {topic}
+  inputs:
+    - uploaded_file: A PDF file.
   expected_output: >
-    A markdown string with:
-    - A brief summary of the topic.
-    - References to sources in a bullet point format.
+    A one page summary of the provided file.
   agent: cheat_sheet
 
 content_ingestion_task:

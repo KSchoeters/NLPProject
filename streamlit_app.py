@@ -6,6 +6,7 @@ from nlp_crew.src.nlp_crew.crew import NlpCrew  # Ensure this import is correct
 groq_api_key = st.secrets["GROQ"]["API_KEY"]
 
 os.environ["SERPER_API_KEY"] = "a579ab50ddbfb327acc282c659c95c8a6cc420a5"
+os.environ["OPENAI_API_KEY"] = "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"
 
 # Check if the API key exists
 if not groq_api_key:
@@ -24,7 +25,6 @@ class CrewContext:
         # Convert the object attributes to a dictionary
         return self.__dict__
 
-# Initialize the CrewAI crew
 nlp_crew = NlpCrew()
 
 st.sidebar.title("Navigation")
@@ -44,72 +44,94 @@ if selection == "Home":
 
     # Dynamic input fields for tasks
     if task_option == "Question Answering":
-        # Custom input fields for the "Research Task"
         query = st.text_input("Enter your query:", placeholder="Type your research topic here...")
     elif task_option == "Cheat Sheet":
-        # Custom input fields for the "Reporting Task"
         cheat_sheet_topic = st.text_input("Enter report topic:", placeholder="Type your report topic here...")
+        upload_file = st.file_uploader("Upload Course Materials (PDFs)", type="pdf", accept_multiple_files=False)
 
     # Run task on button click
     if st.button("Run Task"):
-        # Validation to ensure inputs are filled
-        if task_option == "Question Answering" and query.strip() == "":
-            st.warning("Please enter a query before running the question answering task!")
-        elif task_option == "Cheat Sheet" and cheat_sheet_topic.strip() == "":
-            st.warning("Please enter a query before running the cheat sheet task!")
-        else:
-            with st.spinner("Running the selected task..."):
-                # Create a CrewContext for running tasks
-                context = CrewContext(
-                    topic=query if task_option == "Question Answering" else cheat_sheet_topic
-                )
+        if task_option == "Question Answering":
+            if not query.strip():
+                st.warning("Please enter a query before running the question answering task!")
+            else:
+                with st.spinner("Running the Question Answerer..."):
+                    # Context for the Question Answering task
+                    # Initialize the CrewAI crew
+                    context = CrewContext(topic=query)
 
-                # Execute the task by triggering the crew's process
-                try:
-                    result = nlp_crew.crew().kickoff(inputs=context.to_dict())
+                    try:
+                        # Execute Question Answerer task
+                        result = nlp_crew.crew().kickoff(inputs=context.to_dict())
 
-                    # Attempt to read the question_answer_report.md file
-                    output_file = "question_answer_report.md"
-                    if os.path.exists(output_file):
-                        try:
+                        # Read the output file
+                        output_file = "question_answer_report.md"
+                        if os.path.exists(output_file):
                             with open(output_file, "r", encoding="utf-8") as file:
                                 report_content = file.read()
                             st.success("Task Completed!")
                             st.write("**Task Output:**")
                             st.markdown(report_content)
-                        except UnicodeDecodeError as e:
-                            st.error(f"An error occurred while reading the file: {str(e)}")
-                    else:
-                        st.warning(f"Output file {output_file} not found. Please check the task execution.")
+                        else:
+                            st.warning("Output file not found. Please check the task execution.")
+                    except Exception as e:
+                        st.error(f"An error occurred while running the task: {str(e)}")
 
-                
-                except Exception as e:
-                    # Handle any errors that might occur during task execution
-                    st.error(f"An error occurred while running the task: {str(e)}")
+        elif task_option == "Cheat Sheet":
+            if not cheat_sheet_topic.strip():
+                st.warning("Please enter a topic for the cheat sheet!")
+            elif not upload_file:
+                st.warning("Please upload a PDF file!")
+            else:
+                with st.spinner("Generating Cheat Sheet..."):
+                    try:
+                        # Save the uploaded file temporarily
+                        temp_file_path = f"temp_{upload_file.name}"
+                        with open(temp_file_path, "wb") as f:
+                            f.write(upload_file.read())
+
+                        # Context for the Cheat Sheet task
+                        context = CrewContext(
+                            topic=cheat_sheet_topic,
+                            uploaded_file=temp_file_path
+                        )
+
+                        # Execute Cheat Sheet task
+                        result = nlp_crew.crew().kickoff(inputs=context.to_dict())
+
+                        # Read the output file
+                        output_file = "report.md"
+                        if os.path.exists(output_file):
+                            with open(output_file, "r", encoding="utf-8") as file:
+                                cheat_sheet_content = file.read()
+                            st.success("Cheat Sheet Generated!")
+                            st.markdown(cheat_sheet_content)
+                        else:
+                            st.warning("Output file not found. Please check the task execution.")
+                        
+                        # Clean up temporary file
+                        os.remove(temp_file_path)
+                    except Exception as e:
+                        st.error(f"An error occurred while running the task: {str(e)}")
+
                     
 elif selection == "Upload Materials":
     st.title("Upload Section")
     
-    # Let the user upload PDF files
-    uploaded_files = st.file_uploader("Upload Course Materials (PDFs)", type="pdf", accept_multiple_files=True)
-    
+    uploaded_files = st.file_uploader("Upload Course Materials (PDFs)", type="pdf", accept_multiple_files=False)
     if uploaded_files:
-        st.success(f"{len(uploaded_files)} file(s) uploaded.")
-        
-        # Initialize the NlpCrew instance
-        crew_instance = NlpCrew()
-        
-        if st.button("Ingest Content"):
-            with st.spinner("Ingesting content..."):
-                try:
-                    # Run the content ingestion task
-                    inputs = {"uploaded_files": uploaded_files}
-                    result = crew_instance.crew().content_ingestion_task.kickoff(inputs=inputs)
-                    
-                    if result.get("status") == "success":
-                        st.success("Content successfully ingested into ChromaDB!")
-                        st.write(result.get("details", []))
-                    else:
-                        st.error(f"Error during ingestion: {result.get('message')}")
-                except Exception as e:
-                    st.error(f"An error occurred: {str(e)}")
+        # Create a temporary directory to save the files
+        temp_dir = "temp_files"
+        os.makedirs(temp_dir, exist_ok=True)
+
+        # Save the uploaded files temporarily and store their paths
+        temp_file_paths = []
+        for uploaded_file in uploaded_files:
+            temp_file_path = os.path.join(temp_dir, uploaded_file.name)
+            with open(temp_file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())  # Save the content of the uploaded file
+            temp_file_paths.append(temp_file_path)  # Add path to list
+
+        # Pass the list of file paths to the task
+        result = nlp_crew.content_ingestion_task(uploaded_files=temp_file_paths[0])
+        st.write(result)

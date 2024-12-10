@@ -1,12 +1,13 @@
 import chromadb
-import streamlit as st
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 from PyPDF2 import PdfReader
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import SerperDevTool
+from crewai_tools import SerperDevTool, PDFSearchTool
 import os
+
+os.environ["OPENAI_API_KEY"] = "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"
 
 # Specify the path
 db_path = "../../db_storage"
@@ -20,6 +21,8 @@ client = chromadb.PersistentClient(path=db_path)
 # Initialize SentenceTransformer model
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
+pdf_tool = PDFSearchTool()
+
 @CrewBase
 class NlpCrew():
     """NlpCrew crew"""
@@ -32,20 +35,25 @@ class NlpCrew():
         return Agent(
             config=self.agents_config['question_answerer'],
             tools=[SerperDevTool()],
-            verbose=True
+            verbose=True,
+            max_iter=1,
+            cache=False
         )
 
     @agent
     def cheat_sheet(self) -> Agent:
         return Agent(
             config=self.agents_config['cheat_sheet'],
-            verbose=True
+            tools=[pdf_tool],
+            verbose=True,
+            cache=False
         )
 
     @agent
     def content_ingestion_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['content_ingestion_agent'],
+            tools=[pdf_tool],
             verbose=True
         )
 
@@ -56,30 +64,6 @@ class NlpCrew():
         for page in reader.pages:
             text += page.extract_text()
         return text
-
-    def preprocess_text(self, text):
-        """Preprocess text by splitting it into smaller chunks."""
-        chunk_size = 500  # Split text into chunks of 500 words
-        words = text.split()
-        chunks = [" ".join(words[i:i + chunk_size]) for i in range(0, len(words), chunk_size)]
-        return chunks
-
-    def create_embeddings(self, chunks):
-        """Generate embeddings for text chunks."""
-        embeddings = model.encode(chunks)
-        return embeddings
-
-    def store_in_chromadb(self, chunks, embeddings, pdf_name):
-        """Store the chunks and their embeddings in ChromaDB."""
-        collection = client.get_or_create_collection("course_materials")
-        metadata = [{"source": pdf_name, "text": chunk} for chunk in chunks]
-        collection.add(
-            documents=chunks,
-            embeddings=embeddings,
-            metadatas=metadata,
-            ids=[f"{pdf_name}_{i}" for i in range(len(chunks))]
-        )
-        return f"Successfully stored {len(chunks)} chunks from {pdf_name} in ChromaDB."
     
     def format_with_references(self, task_output):
         """
@@ -106,7 +90,6 @@ class NlpCrew():
     def question_answerer_task(self) -> Task:
         return Task(
             config=self.tasks_config['question_answerer_task'],
-            output_format="json",  # Ensure the task outputs a structured format
             output_file='question_answer_report.md',
             postprocess=self.format_with_references  # Use a custom postprocess step
         )
@@ -114,54 +97,11 @@ class NlpCrew():
 
     @task
     def cheat_sheet_task(self) -> Task:
+
         return Task(
             config=self.tasks_config['cheat_sheet_task'],
             output_file='report.md'
         )
-    
-    
-    @task
-    def content_ingestion_task(self) -> Task:
-        def process_uploaded_files(inputs):
-            """
-            Process uploaded files by extracting text, generating embeddings, and storing them in ChromaDB.
-            """
-            try:
-                uploaded_files = inputs.get("uploaded_files", [])
-                results = []
-
-                for uploaded_file in uploaded_files:
-                    # Extract text
-                    text = self.extract_text_from_pdf(uploaded_file)
-                    # Preprocess text
-                    chunks = self.preprocess_text(text)
-                    # Generate embeddings
-                    embeddings = self.create_embeddings(chunks)
-                    # Store in ChromaDB
-                    result = self.store_in_chromadb(chunks, embeddings, uploaded_file.name)
-                    results.append(result)
-
-                return {"status": "success", "details": results}
-            except Exception as e:
-                return {"status": "error", "message": str(e)}
-
-        return Task(
-            config=self.tasks_config['content_ingestion_task'],
-            postprocess=lambda output: output,  # No postprocessing required
-            custom_func=process_uploaded_files
-        )
-
-
-
-    # def query_chromadb(self, query):
-    #     """Query ChromaDB for relevant documents."""
-    #     query_embedding = model.encode([query])  # Convert query to embedding
-    #     collection = client.get_collection("course_materials")
-    #     results = collection.query(
-    #         query_embeddings=query_embedding,
-    #         n_results=5  # Get top 5 results
-    #     )
-    #     return results
 
     @crew
     def crew(self) -> Crew:
